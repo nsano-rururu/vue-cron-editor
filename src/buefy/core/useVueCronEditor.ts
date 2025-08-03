@@ -60,7 +60,7 @@ export function useVueCronEditor(props: VueCronEditorProps, emit: (event: string
     const innerValue = ref<string | null>(props.value || "*/1 * * * *")
     const editorData = ref<UiState>({ ...initialData.minutes })
     const currentTab = ref<TabKey>("minutes")
-    const i18n = ref<Record<string, string> | null>(null)
+    const i18n = ref<Record<string, string> | null>(createI18n(props.customLocales, props.locale))
 
     const explanation = computed((): string => {
         if (!innerValue.value) return "";
@@ -72,7 +72,7 @@ export function useVueCronEditor(props: VueCronEditorProps, emit: (event: string
     })
 
     function _$t(key: string) {
-        return i18n.value![key];
+        return i18n.value?.[key] || key;
     }
 
     function __loadDataFromExpression() {
@@ -138,9 +138,8 @@ export function useVueCronEditor(props: VueCronEditorProps, emit: (event: string
         __updateCronExpression(initialData[tabKey]);
     }
 
-    // Initialize i18n
+    // Initialize data
     onMounted(() => {
-        i18n.value = createI18n(props.customLocales, props.locale);
         innerValue.value = props.value;
         __loadDataFromExpression();
     })
