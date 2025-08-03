@@ -44,6 +44,8 @@
             <section>
                 <h2>Basic</h2>
                 <section>
+                    <!-- VueCronEditorBuefy temporarily disabled for Vue 3 migration -->
+                    <!-- 
                     <VueCronEditorBuefy
                         :visibleTabs="visibleTabs"
                         :preserveStateOnSwitchToAdvanced="true"
@@ -51,6 +53,8 @@
                         :cronSyntax="selectedSyntax"
                         v-model="sample1CronExpression"
                     ></VueCronEditorBuefy>
+                    -->
+                    <div>Vue Cron Editor - Vue 3 Migration in Progress</div>
                 </section>
                 {{ sample1CronExpression }}
             </section>
@@ -70,18 +74,18 @@
                             <v-divider class="mx-4" inset vertical></v-divider>
                             <v-spacer></v-spacer>
                             <v-dialog v-model="dialog" max-width="900px">
-                                <template v-slot:activator="{ on }">
+                                <template v-slot:activator="{ props }">
                                     <v-btn
                                         color="primary"
                                         dark
                                         class="mb-2"
-                                        v-on="on"
+                                        v-bind="props"
                                         >New Expression</v-btn
                                     >
                                 </template>
                                 <v-card>
                                     <v-card-title>
-                                        <span class="headline"
+                                        <span class="text-h5"
                                             >Adding a cron expression</span
                                         >
                                     </v-card-title>
@@ -90,6 +94,8 @@
                                         <v-container>
                                             <section>
                                                 <h3>vue-cron-editor-buefy</h3>
+                                                <!-- VueCronEditorBuefy temporarily disabled for Vue 3 migration -->
+                                                <!-- 
                                                 <VueCronEditorBuefy
                                                     v-model="
                                                         editedItem.expression
@@ -101,6 +107,8 @@
                                                     :locale="selectedLocale"
                                                     :cronSyntax="selectedSyntax"
                                                 ></VueCronEditorBuefy>
+                                                -->
+                                                <div>Vue Cron Editor - Vue 3 Migration in Progress</div>
                                             </section>
                                             cron expression:
                                             {{ editedItem.expression }}
@@ -110,14 +118,14 @@
                                     <v-card-actions>
                                         <v-spacer></v-spacer>
                                         <v-btn
-                                            color="blue darken-1"
-                                            text
+                                            color="blue-darken-1"
+                                            variant="text"
                                             @click="close"
                                             >Cancel</v-btn
                                         >
                                         <v-btn
-                                            color="blue darken-1"
-                                            text
+                                            color="blue-darken-1"
+                                            variant="text"
                                             @click="save"
                                             >Save</v-btn
                                         >
@@ -127,10 +135,10 @@
                         </v-toolbar>
                     </template>
                     <template v-slot:item.actions="{ item }">
-                        <v-icon small class="mr-2" @click="editItem(item)">
+                        <v-icon size="small" class="me-2" @click="editItem(item)">
                             mdi-pencil
                         </v-icon>
-                        <v-icon small @click="deleteItem(item)">
+                        <v-icon size="small" @click="deleteItem(item)">
                             mdi-delete
                         </v-icon>
                     </template>
@@ -140,69 +148,64 @@
     </v-app>
 </template>
 
-<script>
-import VueCronEditorBuefy from "./buefy/VueCronEditorBuefy.vue";
-import { defaultLocales } from "./buefy/core/i18n";
+<script setup>
+import { ref } from 'vue'
+// import VueCronEditorBuefy from "./buefy/VueCronEditorBuefy.vue";
+// import { defaultLocales } from "./buefy/core/i18n";
 
-export default {
-    name: "App",
-    components: {
-        VueCronEditorBuefy
-    },
-    methods: {
-        editItem(item) {
-            this.editedIndex = this.expressions.indexOf(item);
-            this.editedItem = Object.assign({}, item);
-            this.dialog = true;
-        },
-        deleteItem(item) {
-            const index = this.expressions.indexOf(item);
-            confirm("Are you sure you want to delete this item?") &&
-                this.expressions.splice(index, 1);
-        },
-        close() {
-            this.dialog = false;
-            setTimeout(() => {
-                this.editedIndex = -1;
-                this.editedItem = {};
-            }, 300);
-        },
-        save() {
-            if (this.editedIndex > -1) {
-                Object.assign(
-                    this.expressions[this.editedIndex],
-                    this.editedItem
-                );
-            } else {
-                const newIndex = this.expressions.push(this.editedItem);
-                this.expressions[newIndex - 1].id = newIndex;
-            }
-            this.close();
-        }
-    },
-    data: () => ({
-        sample1CronExpression: "4 4 * * 0,2,3,5",
-        headers: [
-            { text: "Id", value: "id" },
-            { text: "Expression", value: "expression" },
-            { text: "Actions", value: "actions", sortable: false }
-        ],
-        expressions: [{ expression: "4 4 * * 0,2,3,5", id: 0 }],
-        editedItem: {},
-        dialog: false,
-        editedIndex: -1,
-        locales: Object.keys(defaultLocales),
-        selectedLocale: "en",
-        selectedSyntax: "basic",
-        visibleTabs: [
-            "minutes",
-            "hourly",
-            "daily",
-            "weekly",
-            "monthly",
-            "advanced"
-        ],
-        syntaxes: ["basic", "quartz"]
-    })
-};
+const sample1CronExpression = ref("4 4 * * 0,2,3,5")
+const headers = ref([
+    { title: "Id", key: "id" },
+    { title: "Expression", key: "expression" },
+    { title: "Actions", key: "actions", sortable: false }
+])
+const expressions = ref([{ expression: "4 4 * * 0,2,3,5", id: 0 }])
+const editedItem = ref({})
+const dialog = ref(false)
+const editedIndex = ref(-1)
+const locales = ref(['en']) // Object.keys(defaultLocales),
+const selectedLocale = ref("en")
+const selectedSyntax = ref("basic")
+const visibleTabs = ref([
+    "minutes",
+    "hourly",
+    "daily",
+    "weekly",
+    "monthly",
+    "advanced"
+])
+const syntaxes = ref(["basic", "quartz"])
+
+function editItem(item) {
+    editedIndex.value = expressions.value.indexOf(item);
+    editedItem.value = Object.assign({}, item);
+    dialog.value = true;
+}
+
+function deleteItem(item) {
+    const index = expressions.value.indexOf(item);
+    confirm("Are you sure you want to delete this item?") &&
+        expressions.value.splice(index, 1);
+}
+
+function close() {
+    dialog.value = false;
+    setTimeout(() => {
+        editedIndex.value = -1;
+        editedItem.value = {};
+    }, 300);
+}
+
+function save() {
+    if (editedIndex.value > -1) {
+        Object.assign(
+            expressions.value[editedIndex.value],
+            editedItem.value
+        );
+    } else {
+        const newIndex = expressions.value.push(editedItem.value);
+        expressions.value[newIndex - 1].id = newIndex;
+    }
+    close();
+}
 </script>
