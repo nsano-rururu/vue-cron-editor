@@ -44,8 +44,6 @@
             <section>
                 <h2>Basic</h2>
                 <section>
-                    <!-- VueCronEditorBuefy temporarily disabled for Vue 3 migration -->
-                    <!-- 
                     <VueCronEditorBuefy
                         :visibleTabs="visibleTabs"
                         :preserveStateOnSwitchToAdvanced="true"
@@ -53,8 +51,6 @@
                         :cronSyntax="selectedSyntax"
                         v-model="sample1CronExpression"
                     ></VueCronEditorBuefy>
-                    -->
-                    <div>Vue Cron Editor - Vue 3 Migration in Progress</div>
                 </section>
                 {{ sample1CronExpression }}
             </section>
@@ -94,21 +90,13 @@
                                         <v-container>
                                             <section>
                                                 <h3>vue-cron-editor-buefy</h3>
-                                                <!-- VueCronEditorBuefy temporarily disabled for Vue 3 migration -->
-                                                <!-- 
                                                 <VueCronEditorBuefy
-                                                    v-model="
-                                                        editedItem.expression
-                                                    "
+                                                    v-model="editedItem.expression"
                                                     :visibleTabs="visibleTabs"
-                                                    :preserveStateOnSwitchToAdvanced="
-                                                        true
-                                                    "
+                                                    :preserveStateOnSwitchToAdvanced="true"
                                                     :locale="selectedLocale"
                                                     :cronSyntax="selectedSyntax"
                                                 ></VueCronEditorBuefy>
-                                                -->
-                                                <div>Vue Cron Editor - Vue 3 Migration in Progress</div>
                                             </section>
                                             cron expression:
                                             {{ editedItem.expression }}
@@ -150,8 +138,8 @@
 
 <script setup>
 import { ref } from 'vue'
-// import VueCronEditorBuefy from "./buefy/VueCronEditorBuefy.vue";
-// import { defaultLocales } from "./buefy/core/i18n";
+import VueCronEditorBuefy from "./buefy/VueCronEditorBuefy.vue";
+import { defaultLocales } from "./buefy/core/i18n";
 
 const sample1CronExpression = ref("4 4 * * 0,2,3,5")
 const headers = ref([
@@ -163,7 +151,7 @@ const expressions = ref([{ expression: "4 4 * * 0,2,3,5", id: 0 }])
 const editedItem = ref({})
 const dialog = ref(false)
 const editedIndex = ref(-1)
-const locales = ref(['en']) // Object.keys(defaultLocales),
+const locales = ref(Object.keys(defaultLocales))
 const selectedLocale = ref("en")
 const selectedSyntax = ref("basic")
 const visibleTabs = ref([

@@ -19,7 +19,7 @@
                 </div>
             </b-tab-item>
             <b-tab-item
-                v-if="visibleTabs.includes('hourly')"
+                v-if="props.visibleTabs.includes('hourly')"
                 value="1"
                 :label="_$t('hourly')"
                 class="hourly-tab"
@@ -45,7 +45,7 @@
             </b-tab-item>
 
             <b-tab-item
-                v-if="visibleTabs.includes('daily')"
+                v-if="props.visibleTabs.includes('daily')"
                 value="2"
                 :label="_$t('daily')"
                 class="daily-tab"
@@ -69,7 +69,7 @@
             </b-tab-item>
 
             <b-tab-item
-                v-if="visibleTabs.includes('weekly')"
+                v-if="props.visibleTabs.includes('weekly')"
                 value="3"
                 :label="_$t('weekly')"
                 class="weekly-tab"
@@ -138,7 +138,7 @@
             </b-tab-item>
 
             <b-tab-item
-                v-if="visibleTabs.includes('monthly')"
+                v-if="props.visibleTabs.includes('monthly')"
                 value="4"
                 :label="_$t('monthly')"
                 class="monthly-tab"
@@ -173,7 +173,7 @@
             </b-tab-item>
 
             <b-tab-item
-                v-if="visibleTabs.includes('advanced')"
+                v-if="props.visibleTabs.includes('advanced')"
                 value="5"
                 :label="_$t('advanced')"
                 class="advanced-tab"
@@ -192,8 +192,9 @@
     </div>
 </template>
 
-<script>
-import vueCronEditorMixin from "./core/vueCronEditorMixin";
+<script setup lang="ts">
+import { ref, computed, watch, onMounted } from 'vue'
+import { useVueCronEditor } from "./core/useVueCronEditor";
 import { BField } from "buefy/dist/components/field";
 import { BInput } from "buefy/dist/components/input";
 import { BTabs, BTabItem } from "buefy/dist/components/tabs";
@@ -201,59 +202,94 @@ import { BTimepicker } from "buefy/dist/components/timepicker";
 import { BNumberinput } from "buefy/dist/components/numberinput";
 import { BCheckbox } from "buefy/dist/components/checkbox";
 
-export default {
-    name: "VueCronEditorBuefy",
-    mixins: [vueCronEditorMixin],
-    components: {
-        BField,
-        BInput,
-        BTabs,
-        BTabItem,
-        BTimepicker,
-        BNumberinput,
-        BCheckbox
-    },
-    data: () => ({
-        activeTab: null,
-        tabs: [
-            { id: "0", key: "minutes" },
-            { id: "1", key: "hourly" },
-            { id: "2", key: "daily" },
-            { id: "3", key: "weekly" },
-            { id: "4", key: "monthly" },
-            { id: "5", key: "advanced" }
-        ]
-    }),
-    mounted() {
-        this.activeTab = this.tabs.find(t => t.key === this.currentTab).id;
-    },
-    watch: {
-        currentTab() {
-            this.activeTab = this.tabs.find(t => t.key === this.currentTab).id;
-        }
-    },
-    computed: {
-        dateTime() {
-            let dateTime = new Date();
-            dateTime.setHours(this.editorData.hours);
-            dateTime.setMinutes(this.editorData.minutes);
-            return dateTime;
-        }
-    },
-    methods: {
-        reset(e) {
-            const tabKey = this.tabs.find(t => t.id === e).key;
-            this._resetToTab(tabKey);
-        },
-        setDateTime(e) {
-            if (e == null) {
-                return;
-            }
-            this.editorData.hours = e.getHours();
-            this.editorData.minutes = e.getMinutes();
-        }
+interface Props {
+    modelValue?: string
+    visibleTabs?: string[]
+    preserveStateOnSwitchToAdvanced?: boolean
+    locale?: string
+    customLocales?: Record<string, string> | null
+    cronSyntax?: string
+}
+
+const props = withDefaults(defineProps<Props>(), {
+    modelValue: "*/1 * * * *",
+    visibleTabs: () => [
+        "minutes",
+        "hourly", 
+        "daily",
+        "weekly",
+        "monthly",
+        "advanced"
+    ],
+    preserveStateOnSwitchToAdvanced: false,
+    locale: "en",
+    customLocales: null,
+    cronSyntax: "basic"
+})
+
+const emit = defineEmits<{
+    'update:modelValue': [value: string | null]
+}>()
+
+// Use the composable
+const {
+    innerValue,
+    editorData,
+    currentTab,
+    i18n,
+    explanation,
+    _$t,
+    _resetToTab,
+    __loadDataFromExpression,
+    __updateCronExpression
+} = useVueCronEditor({
+    value: props.modelValue,
+    visibleTabs: props.visibleTabs,
+    preserveStateOnSwitchToAdvanced: props.preserveStateOnSwitchToAdvanced,
+    locale: props.locale,
+    customLocales: props.customLocales,
+    cronSyntax: props.cronSyntax
+}, emit)
+
+const activeTab = ref<string | null>(null)
+const tabs = ref([
+    { id: "0", key: "minutes" },
+    { id: "1", key: "hourly" },
+    { id: "2", key: "daily" },
+    { id: "3", key: "weekly" },
+    { id: "4", key: "monthly" },
+    { id: "5", key: "advanced" }
+])
+
+const dateTime = computed(() => {
+    let dateTime = new Date();
+    dateTime.setHours(editorData.value.hours || 0);
+    dateTime.setMinutes(editorData.value.minutes || 0);
+    return dateTime;
+})
+
+function reset(e: string) {
+    const tabKey = tabs.value.find(t => t.id === e)?.key;
+    if (tabKey) {
+        _resetToTab(tabKey as any);
     }
-};
+}
+
+function setDateTime(e: Date | null) {
+    if (e == null) {
+        return;
+    }
+    editorData.value.hours = e.getHours();
+    editorData.value.minutes = e.getMinutes();
+}
+
+onMounted(() => {
+    activeTab.value = tabs.value.find(t => t.key === currentTab.value)?.id || null;
+})
+
+watch(currentTab, () => {
+    activeTab.value = tabs.value.find(t => t.key === currentTab.value)?.id || null;
+})
 </script>
 
 <style lang="scss">
@@ -280,12 +316,8 @@ export default {
         display: flex;
     }
 
-    @import "~bulma/sass/utilities/functions";
-
-    $primary: #3273dc;
-    $primary-invert: findColorInvert($primary);
-
-    @import "~bulma";
-    @import "~buefy/src/scss/buefy";
+    /* Import pre-built CSS instead of SCSS to avoid build issues */
+    @import "../../../node_modules/bulma/css/bulma.min.css";
+    @import "../../../node_modules/buefy/dist/buefy.css";
 }
 </style>
