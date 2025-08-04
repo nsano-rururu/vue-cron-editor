@@ -2,22 +2,53 @@
 # vue-cron-editor
 VueCronEditor is a component library built with Vue allowing for easier editing of cron expressions.
 
+## ✨ Vue 2 & Vue 3 Compatibility
+
+This library now supports both Vue 2 and Vue 3 through [vue-demi](https://github.com/vueuse/vue-demi), making it compatible with any Vue project regardless of version.
+
+### Key Features
+
+- 🔧 **Universal compatibility**: Works with both Vue 2.6+ and Vue 3.0+
+- 🎨 **Multiple UI frameworks**: Supports both Vuetify 3 and Buefy 1.0.1
+- 📱 **Modern build system**: Built with Vite for optimal performance
+- 🎯 **TypeScript support**: Full TypeScript definitions included
+- 🧪 **Composition API**: Modern Vue 3 Composition API with Vue 2 compatibility
+
 # Demo
 https://karoletrych.github.io/vue-cron-editor/
 
 (The code is here: https://github.com/karoletrych/vue-cron-editor/blob/master/src/App.vue)
 
 # Requirements
-- Vue ^2.0
+- Vue ^2.6.0 || ^3.0.0
 
 # Installation
 - vue-cron-editor-buefy 
-```
+```bash
 npm install vue-cron-editor-buefy --save
 ```
 
 # Usage
+
+## Vue 3 + Composition API
+```vue
+<template>
+  <div>
+    <VueCronEditorBuefy v-model="cronExpression"/>
+    {{cronExpression}}
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import VueCronEditorBuefy from 'vue-cron-editor-buefy'
+
+const cronExpression = ref('*/1 * * * *')
+</script>
 ```
+
+## Vue 2 + Options API
+```vue
 <template>
   <div>
     <VueCronEditorBuefy v-model="cronExpression"/>
@@ -41,6 +72,27 @@ export default {
 };
 </script>
 ```
+
+## Vue-demi Compatibility
+
+This library uses [vue-demi](https://github.com/vueuse/vue-demi) to provide universal compatibility:
+
+- **Automatic detection**: The library automatically adapts to your Vue version
+- **Same API**: Use the same component API regardless of Vue version  
+- **Type safety**: Full TypeScript support for both Vue 2 and Vue 3
+
+### Switching Vue Versions (Development)
+
+For development purposes, you can switch between Vue versions:
+
+```bash
+# Switch to Vue 2
+npm run switch-vue:2
+
+# Switch to Vue 3  
+npm run switch-vue:3
+```
+
 The editor tab will be set to the one which is able to represent an initial expression given to a ``value`` prop (**minutes** tab in the example above). 
 If none of the tabs can represent the given expression then **advanced** tab is selected.
 
