@@ -6,7 +6,7 @@ const one2ThirtyOne = fc.integer(1, 31);
 const one2Twelve = fc.integer(1, 12);
 const one2safeInteger = fc.integer(1, Number.MAX_SAFE_INTEGER);
 
-const arrayOfDays = fc.set(
+const arrayOfDays = fc.uniqueArray(
     fc.oneof(
         fc.constant("MON"),
         fc.constant("TUE"),

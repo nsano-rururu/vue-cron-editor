@@ -58,7 +58,7 @@ export interface VueCronEditorProps {
 
 export function useVueCronEditor(
     props: VueCronEditorProps,
-    emit: (event: string, ...args: any[]) => void,
+    emit: (_event: string, ..._args: any[]) => void,
 ) {
     const innerValue = ref<string | null>(props.value || "*/1 * * * *");
     const editorData = ref<UiState>({ ...initialData.minutes });
