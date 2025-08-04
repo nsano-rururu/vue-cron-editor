@@ -2,7 +2,6 @@
   "name": "vue-cron-editor",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -10,7 +9,10 @@
     "test:unit": "vitest",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "type-check": "vue-tsc --noEmit",
-    "release:samples": "npm run build && gh-pages -d dist"
+    "release:samples": "npm run build && gh-pages -d dist",
+    "postinstall": "vue-demi-fix",
+    "switch-vue:2": "vue-demi-switch 2",
+    "switch-vue:3": "vue-demi-switch 3"
   },
   "dependencies": {
     "@mdi/font": "^7.4.47",
@@ -19,8 +21,11 @@
     "core-js": "^3.35.0",
     "cron-validator": "^1.3.1",
     "cronstrue": "^2.50.0",
-    "vue": "^3.4.0",
+    "vue-demi": "^0.14.10",
     "vuetify": "^3.7.0"
+  },
+  "peerDependencies": {
+    "vue": "^2.6.0 || ^3.0.0"
   },
   "devDependencies": {
     "@types/jest": "^29.5.0",
@@ -41,6 +46,7 @@
     "typescript": "~5.5.0",
     "vite": "^5.4.0",
     "vitest": "^2.1.0",
+    "vue": "^3.4.0",
     "vue-tsc": "^2.1.0"
   },
   "gitHooks": {

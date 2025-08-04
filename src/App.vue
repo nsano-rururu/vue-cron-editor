@@ -70,7 +70,7 @@
                             <v-divider class="mx-4" inset vertical></v-divider>
                             <v-spacer></v-spacer>
                             <v-dialog v-model="dialog" max-width="900px">
-                                <template v-slot:activator="{ props }">
+                                <template #activator="{ props }">
                                     <v-btn
                                         color="primary"
                                         dark
@@ -91,9 +91,13 @@
                                             <section>
                                                 <h3>vue-cron-editor-buefy</h3>
                                                 <VueCronEditorBuefy
-                                                    v-model="editedItem.expression"
+                                                    v-model="
+                                                        editedItem.expression
+                                                    "
                                                     :visibleTabs="visibleTabs"
-                                                    :preserveStateOnSwitchToAdvanced="true"
+                                                    :preserveStateOnSwitchToAdvanced="
+                                                        true
+                                                    "
                                                     :locale="selectedLocale"
                                                     :cronSyntax="selectedSyntax"
                                                 ></VueCronEditorBuefy>
@@ -122,8 +126,12 @@
                             </v-dialog>
                         </v-toolbar>
                     </template>
-                    <template v-slot:item.actions="{ item }">
-                        <v-icon size="small" class="me-2" @click="editItem(item)">
+                    <template v-slot:[`item.actions`]="{ item }">
+                        <v-icon
+                            size="small"
+                            class="me-2"
+                            @click="editItem(item)"
+                        >
                             mdi-pencil
                         </v-icon>
                         <v-icon size="small" @click="deleteItem(item)">
@@ -137,32 +145,32 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref } from "vue";
 import VueCronEditorBuefy from "./buefy/VueCronEditorBuefy.vue";
 import { defaultLocales } from "./buefy/core/i18n";
 
-const sample1CronExpression = ref("4 4 * * 0,2,3,5")
+const sample1CronExpression = ref("4 4 * * 0,2,3,5");
 const headers = ref([
     { title: "Id", key: "id" },
     { title: "Expression", key: "expression" },
-    { title: "Actions", key: "actions", sortable: false }
-])
-const expressions = ref([{ expression: "4 4 * * 0,2,3,5", id: 0 }])
-const editedItem = ref({})
-const dialog = ref(false)
-const editedIndex = ref(-1)
-const locales = ref(Object.keys(defaultLocales))
-const selectedLocale = ref("en")
-const selectedSyntax = ref("basic")
+    { title: "Actions", key: "actions", sortable: false },
+]);
+const expressions = ref([{ expression: "4 4 * * 0,2,3,5", id: 0 }]);
+const editedItem = ref({});
+const dialog = ref(false);
+const editedIndex = ref(-1);
+const locales = ref(Object.keys(defaultLocales));
+const selectedLocale = ref("en");
+const selectedSyntax = ref("basic");
 const visibleTabs = ref([
     "minutes",
     "hourly",
     "daily",
     "weekly",
     "monthly",
-    "advanced"
-])
-const syntaxes = ref(["basic", "quartz"])
+    "advanced",
+]);
+const syntaxes = ref(["basic", "quartz"]);
 
 function editItem(item) {
     editedIndex.value = expressions.value.indexOf(item);
@@ -186,10 +194,7 @@ function close() {
 
 function save() {
     if (editedIndex.value > -1) {
-        Object.assign(
-            expressions.value[editedIndex.value],
-            editedItem.value
-        );
+        Object.assign(expressions.value[editedIndex.value], editedItem.value);
     } else {
         const newIndex = expressions.value.push(editedItem.value);
         expressions.value[newIndex - 1].id = newIndex;
