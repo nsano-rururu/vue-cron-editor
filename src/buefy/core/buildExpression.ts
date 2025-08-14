@@ -20,8 +20,8 @@ export const buildExpression = (syntax: CronSyntax, state: UiState): string => {
             return `${state.minutes} ${state.hours} */${state.dayInterval} * *`;
         }
         if (state.type === "weekly") {
-            const days = state.days
-                .map((d) => toDayNumber(d).toString())
+            let days = state.days
+                .map(d => toDayNumber(d).toString())
                 .sort()
                 .join(",");
             return `${state.minutes} ${state.hours} * * ${days}`;
@@ -44,10 +44,10 @@ export const buildExpression = (syntax: CronSyntax, state: UiState): string => {
             return `0 ${state.minutes} ${state.hours} */${state.dayInterval} * ?`;
         }
         if (state.type === "weekly") {
-            const days = state.days
-                .map((d) => toDayNumber(d))
+            let days = state.days
+                .map(d => toDayNumber(d))
                 .sort()
-                .map((d) => toDayAlias(d))
+                .map(d => toDayAlias(d))
                 .join(",");
             return `0 ${state.minutes} ${state.hours} ? * ${days}`;
         }
