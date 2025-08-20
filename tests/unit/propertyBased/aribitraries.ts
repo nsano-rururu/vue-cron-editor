@@ -1,21 +1,15 @@
 import * as fc from "fast-check";
 
+// Simple integer generators with new API syntax
 const zero2sixty = fc.integer({ min: 0, max: 59 });
 const one2twentyThree = fc.integer({ min: 1, max: 23 });
 const one2ThirtyOne = fc.integer({ min: 1, max: 31 });
 const one2Twelve = fc.integer({ min: 1, max: 12 });
 const one2safeInteger = fc.integer({ min: 1, max: Number.MAX_SAFE_INTEGER });
 
-const arrayOfDays = fc.uniqueArray(
-    fc.oneof(
-        fc.constant("MON"),
-        fc.constant("TUE"),
-        fc.constant("WED"),
-        fc.constant("THU"),
-        fc.constant("FRI"),
-        fc.constant("SAT"),
-        fc.constant("SUN")
-    ),
+// Array of day constants  
+const arrayOfDays = fc.array(
+    fc.constantFrom("MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"),
     { minLength: 1, maxLength: 7 }
 );
 
