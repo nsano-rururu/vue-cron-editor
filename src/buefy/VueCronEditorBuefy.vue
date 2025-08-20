@@ -280,12 +280,7 @@ export default {
         display: flex;
     }
 
-    @import "~bulma/sass/utilities/functions";
-
-    $primary: #3273dc;
-    $primary-invert: findColorInvert($primary);
-
-    @import "~bulma";
-    @import "~buefy/src/scss/buefy";
+    // @import "bulma";
+    // @import "buefy/src/scss/buefy";
 }
 </style>
