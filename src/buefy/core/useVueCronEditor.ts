@@ -140,7 +140,6 @@ export function useVueCronEditor(props: VueCronEditorProps, emit: (event: string
 
     // Initialize data
     onMounted(() => {
-        innerValue.value = props.value;
         __loadDataFromExpression();
     })
 
