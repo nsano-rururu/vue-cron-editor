@@ -193,7 +193,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, onMounted } from 'vue'
+import { ref, computed, watch, onMounted } from "vue"
 import { useVueCronEditor } from "./core/useVueCronEditor";
 import { BField } from "buefy/dist/components/field";
 import { BInput } from "buefy/dist/components/input";
