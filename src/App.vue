@@ -147,7 +147,7 @@ import { defaultLocales } from "./buefy/core/i18n";
 export default {
     name: "App",
     components: {
-        VueCronEditorBuefy
+        VueCronEditorBuefy,
     },
     methods: {
         editItem(item) {
@@ -171,21 +171,21 @@ export default {
             if (this.editedIndex > -1) {
                 Object.assign(
                     this.expressions[this.editedIndex],
-                    this.editedItem
+                    this.editedItem,
                 );
             } else {
                 const newIndex = this.expressions.push(this.editedItem);
                 this.expressions[newIndex - 1].id = newIndex;
             }
             this.close();
-        }
+        },
     },
     data: () => ({
         sample1CronExpression: "4 4 * * 0,2,3,5",
         headers: [
             { text: "Id", value: "id" },
             { text: "Expression", value: "expression" },
-            { text: "Actions", value: "actions", sortable: false }
+            { text: "Actions", value: "actions", sortable: false },
         ],
         expressions: [{ expression: "4 4 * * 0,2,3,5", id: 0 }],
         editedItem: {},
@@ -200,9 +200,9 @@ export default {
             "daily",
             "weekly",
             "monthly",
-            "advanced"
+            "advanced",
         ],
-        syntaxes: ["basic", "quartz"]
-    })
+        syntaxes: ["basic", "quartz"],
+    }),
 };
 </script>

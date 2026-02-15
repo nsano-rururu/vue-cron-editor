@@ -10,32 +10,32 @@ const one2safeInteger = fc.integer({ min: 1, max: Number.MAX_SAFE_INTEGER });
 // Array of day constants
 const arrayOfDays = fc.array(
     fc.constantFrom("MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"),
-    { minLength: 1, maxLength: 7 }
+    { minLength: 1, maxLength: 7 },
 );
 
 const minutesStateArbitrary = fc.record({
     type: fc.constant("minutes"),
-    minuteInterval: one2safeInteger
+    minuteInterval: one2safeInteger,
 });
 
 const hourlyStateArbitrary = fc.record({
     type: fc.constant("hourly"),
     minutes: zero2sixty,
-    hourInterval: one2twentyThree
+    hourInterval: one2twentyThree,
 });
 
 const dailyStateArbitrary = fc.record({
     type: fc.constant("daily"),
     minutes: zero2sixty,
     hours: one2twentyThree,
-    dayInterval: one2safeInteger
+    dayInterval: one2safeInteger,
 });
 
 const weeklyStateArbitrary = fc.record({
     type: fc.constant("weekly"),
     minutes: zero2sixty,
     hours: one2twentyThree,
-    days: arrayOfDays
+    days: arrayOfDays,
 });
 
 const monthlyStateArbitrary = fc.record({
@@ -43,7 +43,7 @@ const monthlyStateArbitrary = fc.record({
     minutes: zero2sixty,
     hours: one2twentyThree,
     day: one2ThirtyOne,
-    monthInterval: one2Twelve
+    monthInterval: one2Twelve,
 });
 
 export const state = fc.oneof(
@@ -51,5 +51,5 @@ export const state = fc.oneof(
     hourlyStateArbitrary,
     dailyStateArbitrary,
     weeklyStateArbitrary,
-    monthlyStateArbitrary
+    monthlyStateArbitrary,
 );

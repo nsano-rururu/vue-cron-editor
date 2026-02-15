@@ -211,7 +211,7 @@ export default {
         BTabItem,
         BTimepicker,
         BNumberinput,
-        BCheckbox
+        BCheckbox,
     },
     data: () => ({
         activeTab: null,
@@ -221,16 +221,18 @@ export default {
             { id: "2", key: "daily" },
             { id: "3", key: "weekly" },
             { id: "4", key: "monthly" },
-            { id: "5", key: "advanced" }
-        ]
+            { id: "5", key: "advanced" },
+        ],
     }),
     mounted() {
-        this.activeTab = this.tabs.find(t => t.key === this.currentTab).id;
+        this.activeTab = this.tabs.find((t) => t.key === this.currentTab).id;
     },
     watch: {
         currentTab() {
-            this.activeTab = this.tabs.find(t => t.key === this.currentTab).id;
-        }
+            this.activeTab = this.tabs.find(
+                (t) => t.key === this.currentTab,
+            ).id;
+        },
     },
     computed: {
         dateTime() {
@@ -238,11 +240,11 @@ export default {
             dateTime.setHours(this.editorData.hours);
             dateTime.setMinutes(this.editorData.minutes);
             return dateTime;
-        }
+        },
     },
     methods: {
         reset(e) {
-            const tabKey = this.tabs.find(t => t.id === e).key;
+            const tabKey = this.tabs.find((t) => t.id === e).key;
             this._resetToTab(tabKey);
         },
         setDateTime(e) {
@@ -251,8 +253,8 @@ export default {
             }
             this.editorData.hours = e.getHours();
             this.editorData.minutes = e.getMinutes();
-        }
-    }
+        },
+    },
 };
 </script>
 
