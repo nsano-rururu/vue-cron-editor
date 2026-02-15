@@ -48,12 +48,12 @@ const initialData: Record<TabKey, UiState> = {
 };
 
 export interface VueCronEditorProps {
-    value: string
-    visibleTabs: string[]
-    preserveStateOnSwitchToAdvanced: boolean
-    locale: string
-    customLocales: Record<string, string> | null
-    cronSyntax: string
+    value: string,
+    visibleTabs: string[],
+    preserveStateOnSwitchToAdvanced: boolean,
+    locale: string,
+    customLocales: Record<string, string> | null,
+    cronSyntax: string,
 }
 
 export function useVueCronEditor(props: VueCronEditorProps, emit: (event: string, ...args: any[]) => void) {
