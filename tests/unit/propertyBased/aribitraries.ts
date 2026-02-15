@@ -7,7 +7,7 @@ const one2ThirtyOne = fc.integer({ min: 1, max: 31 });
 const one2Twelve = fc.integer({ min: 1, max: 12 });
 const one2safeInteger = fc.integer({ min: 1, max: Number.MAX_SAFE_INTEGER });
 
-// Array of day constants  
+// Array of day constants
 const arrayOfDays = fc.array(
     fc.constantFrom("MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"),
     { minLength: 1, maxLength: 7 }
