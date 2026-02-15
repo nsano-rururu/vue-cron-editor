@@ -11,9 +11,9 @@ function getMountedComponent(Component: any, props: any) {
 describe("changing expression updates data", () => {
     it("when changing to expression from different tab, data is updated", async () => {
         const component = getMountedComponent(VueCronEditorBuefy, {
-            value: "*/43 * * * *",
+            modelValue: "*/43 * * * *",
         });
-        component.setProps({ value: "0 0 * * MON,WED,THU" });
+        component.setProps({ modelValue: "0 0 * * MON,WED,THU" });
 
         await nextTick();
 
