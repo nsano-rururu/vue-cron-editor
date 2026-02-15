@@ -20,7 +20,6 @@ export default defineConfig({
     css: {
         preprocessorOptions: {
             scss: {
-                api: "modern",
                 additionalData: `
           @import "bulma/sass/utilities/functions";
           @import "bulma/sass/utilities/initial-variables";
