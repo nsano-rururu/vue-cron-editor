@@ -15,35 +15,35 @@ import { buildExpression, TabKey, isStateValid } from "./buildExpression";
 const initialData: Record<TabKey, UiState> = {
     minutes: {
         type: "minutes",
-        minuteInterval: 1
+        minuteInterval: 1,
     },
     hourly: {
         type: "hourly",
         minutes: 0,
-        hourInterval: 1
+        hourInterval: 1,
     },
     daily: {
         type: "daily",
         minutes: 0,
         hours: 0,
-        dayInterval: 1
+        dayInterval: 1,
     },
     weekly: {
         type: "weekly",
         minutes: 0,
         hours: 0,
-        days: ["MON"]
+        days: ["MON"],
     },
     monthly: {
         type: "monthly",
         hours: 0,
         minutes: 0,
         day: 1,
-        monthInterval: 1
+        monthInterval: 1,
     },
     advanced: {
         type: "advanced",
-        cronExpression: ""
+        cronExpression: "",
     }
 };
 
