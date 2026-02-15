@@ -31,6 +31,6 @@ export default defineConfig({
         outDir: "dist",
     },
     optimizeDeps: {
-        include: ["vue", "vuetify"],
+        include: ["vue", "buefy"],
     },
 });
