@@ -262,10 +262,10 @@ const tabs = ref([
 ])
 
 const dateTime = computed(() => {
-    let dateTime = new Date();
-    dateTime.setHours(editorData.value.hours || 0);
-    dateTime.setMinutes(editorData.value.minutes || 0);
-    return dateTime;
+    let currentDateTime = new Date();
+    currentDateTime.setHours(editorData.value.hours || 0);
+    currentDateTime.setMinutes(editorData.value.minutes || 0);
+    return currentDateTime;
 })
 
 function reset(e: string) {
