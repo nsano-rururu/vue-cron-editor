@@ -57,7 +57,7 @@ export interface VueCronEditorProps {
 }
 
 export function useVueCronEditor(props: VueCronEditorProps, emit: (event: string, ...args: any[]) => void) {
-    const innerValue = ref<string | null>(props.value || "*/1 * * * *")
+    const innerValue = ref<string | null>(props.modelValue || "*/1 * * * *")
     const editorData = ref<UiState>({ ...initialData.minutes })
     const currentTab = ref<TabKey>("minutes")
     const i18n = ref<Record<string, string> | null>(createI18n(props.customLocales, props.locale))
@@ -76,11 +76,11 @@ export function useVueCronEditor(props: VueCronEditorProps, emit: (event: string
     }
 
     function __loadDataFromExpression() {
-        const tabData = parseExpression(props.value);
+        const tabData = parseExpression(props.modelValue);
         if (!props.visibleTabs.includes(tabData.type)) {
             editorData.value = {
                 type: "advanced",
-                cronExpression: props.value
+                cronExpression: props.modelValue,
             };
             currentTab.value = "advanced";
             return;
@@ -148,9 +148,9 @@ export function useVueCronEditor(props: VueCronEditorProps, emit: (event: string
         i18n.value = createI18n(props.customLocales, props.locale);
     })
 
-    // Watch for value changes
-    watch(() => props.value, () => {
-        if (props.value === innerValue.value) {
+    // Watch for modelValue changes
+    watch(() => props.modelValue, () => {
+        if (props.modelValue === innerValue.value) {
             return;
         }
         __loadDataFromExpression();

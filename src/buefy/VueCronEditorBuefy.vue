@@ -231,25 +231,14 @@ const emit = defineEmits<{
     'update:modelValue': [value: string | null]
 }>()
 
-// Use the composable
+// Use the composable - props is already reactive in script setup
 const {
-    innerValue,
     editorData,
     currentTab,
-    i18n,
     explanation,
     _$t,
     _resetToTab,
-    __loadDataFromExpression,
-    __updateCronExpression
-} = useVueCronEditor({
-    value: props.modelValue,
-    visibleTabs: props.visibleTabs,
-    preserveStateOnSwitchToAdvanced: props.preserveStateOnSwitchToAdvanced,
-    locale: props.locale,
-    customLocales: props.customLocales,
-    cronSyntax: props.cronSyntax
-}, emit)
+} = useVueCronEditor(props as any, emit)
 
 const activeTab = ref<string | null>(null)
 const tabs = ref([
