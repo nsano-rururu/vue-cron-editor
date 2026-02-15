@@ -4,7 +4,7 @@
  * Functionality dependent on UI frameworks should be implemented in derived components
  */
 
-import { ref, computed, watch, onMounted } from 'vue';
+import { ref, computed, watch, onMounted } from "vue";
 import * as cronValidator from "cron-validator";
 import * as cronstrue from "cronstrue/i18n";
 import { createI18n, toCronstrueLocale } from "./i18n";
@@ -48,7 +48,7 @@ const initialData: Record<TabKey, UiState> = {
 };
 
 export interface VueCronEditorProps {
-    value: string,
+    modelValue: string,
     visibleTabs: string[],
     preserveStateOnSwitchToAdvanced: boolean,
     locale: string,
