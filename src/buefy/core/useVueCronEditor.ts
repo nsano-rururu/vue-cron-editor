@@ -113,7 +113,7 @@ export function useVueCronEditor(props: VueCronEditorProps, emit: (event: string
     }
 
     function _isValidExpression(cronExpression: string) {
-        let options =
+        const options =
             props.cronSyntax == "quartz"
                 ? {
                       seconds: true,
