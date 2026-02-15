@@ -150,7 +150,7 @@ export function useVueCronEditor(props: VueCronEditorProps, emit: (event: string
 
     // Watch for value changes
     watch(() => props.value, () => {
-        if (props.value == innerValue.value) {
+        if (props.value === innerValue.value) {
             return;
         }
         __loadDataFromExpression();
