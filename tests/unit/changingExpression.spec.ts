@@ -1,6 +1,6 @@
 import { shallowMount } from "@vue/test-utils";
 import VueCronEditorBuefy from "../../src/buefy/VueCronEditorBuefy.vue";
-import { nextTick } from "vue-demi";
+import { nextTick } from "vue";
 
 function getMountedComponent(Component: any, props: any) {
     return shallowMount(Component, {
