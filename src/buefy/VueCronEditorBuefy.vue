@@ -276,7 +276,7 @@ function reset(e: string) {
 }
 
 function setDateTime(e: Date | null) {
-    if (e == null) {
+    if (e === null) {
         return;
     }
     editorData.value.hours = e.getHours();
