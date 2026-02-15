@@ -178,6 +178,6 @@ export function useVueCronEditor(props: VueCronEditorProps, emit: (event: string
         _$t,
         _resetToTab,
         __loadDataFromExpression,
-        __updateCronExpression
+        __updateCronExpression,
     }
 }
