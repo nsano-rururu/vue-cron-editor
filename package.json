@@ -9,8 +9,8 @@
     "preview": "vite preview",
     "test:unit": "vitest",
     "test:unit:run": "vitest run",
-    "lint": "eslint . --ext .vue,.js,.ts",
-    "lint:fix": "eslint . --ext .vue,.js,.ts --fix",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "postinstall": "link-parent-bin -c src",
     "release:samples": "npm run build && gh-pages -d dist"
   },
