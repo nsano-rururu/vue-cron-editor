@@ -5,6 +5,7 @@ import typescriptParser from "@typescript-eslint/parser";
 import vueParser from "vue-eslint-parser";
 import prettier from "eslint-plugin-prettier";
 import prettierConfig from "eslint-config-prettier";
+import globals from "globals";
 
 export default [
     js.configs.recommended,
@@ -21,11 +22,8 @@ export default [
                 extraFileExtensions: [".vue"],
             },
             globals: {
-                console: "readonly",
-                process: "readonly",
-                __dirname: "readonly",
-                __filename: "readonly",
-                module: "readonly",
+                ...globals.browser,
+                ...globals.node,
             },
         },
         plugins: {
@@ -38,6 +36,7 @@ export default [
             "no-debugger":
                 process.env.NODE_ENV === "production" ? "error" : "off",
             "vue/no-unused-components": "warn",
+            "vue/valid-v-slot": ["error", { allowModifiers: true }],
             "prettier/prettier": "error",
         },
     },
@@ -48,6 +47,8 @@ export default [
         ],
         languageOptions: {
             globals: {
+                ...globals.browser,
+                ...globals.node,
                 describe: "readonly",
                 it: "readonly",
                 expect: "readonly",
@@ -57,5 +58,8 @@ export default [
                 vi: "readonly",
             },
         },
+    },
+    {
+        ignores: ["src/shims-tsx.d.ts"],
     },
 ];
