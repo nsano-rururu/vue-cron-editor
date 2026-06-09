@@ -1,6 +1,18 @@
 [![Actions Status](https://github.com/karoletrych/vue-cron-editor/workflows/Node%20CI/badge.svg)](https://github.com/karoletrych/vue-cron-editor/actions)
 # vue-cron-editor
-VueCronEditor is a component library built with Vue allowing for easier editing of cron expressions.
+VueCronEditor is a component library built with Vue 3 allowing for easier editing of cron expressions.
+
+## ✨ Vue 3 Component Library
+
+Modern Vue 3 cron editor with latest dependencies and UI frameworks.
+
+### Key Features
+
+- 🔧 **Vue 3 support**: Built specifically for Vue 3.0+ projects
+- 🎨 **Multiple UI frameworks**: Supports both Vuetify 3 and Buefy 3.0
+- 📱 **Modern build system**: Built with Vite for optimal performance
+- 🎯 **TypeScript support**: Full TypeScript definitions included
+- 🧪 **Composition API**: Modern Vue 3 Composition API with script setup
 
 # Demo
 https://karoletrych.github.io/vue-cron-editor/
@@ -8,16 +20,35 @@ https://karoletrych.github.io/vue-cron-editor/
 (The code is here: https://github.com/karoletrych/vue-cron-editor/blob/master/src/App.vue)
 
 # Requirements
-- Vue ^2.0
+- Vue ^3.0.0
 
 # Installation
 - vue-cron-editor-buefy 
-```
+```bash
 npm install vue-cron-editor-buefy --save
 ```
 
 # Usage
+
+## Vue 3 + Composition API
+```vue
+<template>
+  <div>
+    <VueCronEditorBuefy v-model="cronExpression"/>
+    {{cronExpression}}
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import VueCronEditorBuefy from 'vue-cron-editor-buefy'
+
+const cronExpression = ref('*/1 * * * *')
+</script>
 ```
+
+## Vue 3 + Options API
+```vue
 <template>
   <div>
     <VueCronEditorBuefy v-model="cronExpression"/>
@@ -41,7 +72,8 @@ export default {
 };
 </script>
 ```
-The editor tab will be set to the one which is able to represent an initial expression given to a ``value`` prop (**minutes** tab in the example above). 
+
+The editor tab will be set to the one which is able to represent an initial expression given to a ``v-model`` prop (**minutes** tab in the example above). 
 If none of the tabs can represent the given expression then **advanced** tab is selected.
 
 Kind of cron syntax can be selected with ``cronSyntax`` prop. Available: 
