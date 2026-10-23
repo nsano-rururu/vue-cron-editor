@@ -21,7 +21,7 @@ export const buildExpression = (syntax: CronSyntax, state: UiState): string => {
         }
         if (state.type === "weekly") {
             let days = state.days
-                .map(d => toDayNumber(d).toString())
+                .map((d) => toDayNumber(d).toString())
                 .sort()
                 .join(",");
             return `${state.minutes} ${state.hours} * * ${days}`;
@@ -45,9 +45,9 @@ export const buildExpression = (syntax: CronSyntax, state: UiState): string => {
         }
         if (state.type === "weekly") {
             let days = state.days
-                .map(d => toDayNumber(d))
+                .map((d) => toDayNumber(d))
                 .sort()
-                .map(d => toDayAlias(d))
+                .map((d) => toDayAlias(d))
                 .join(",");
             return `0 ${state.minutes} ${state.hours} ? * ${days}`;
         }

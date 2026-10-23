@@ -5,7 +5,7 @@ export const aliasToNumberMapping: Record<string, number> = {
     WED: 3,
     THU: 4,
     FRI: 5,
-    SAT: 6
+    SAT: 6,
 };
 
 export function toDayNumber(alias: string): number {
@@ -18,7 +18,7 @@ export function toDayNumber(alias: string): number {
 
 export function toDayAlias(num: number): string {
     let alias = Object.keys(aliasToNumberMapping).find(
-        k => aliasToNumberMapping[k] === num
+        (k) => aliasToNumberMapping[k] === num,
     );
     if (alias == undefined) {
         throw new Error(`unhandled number ${num}`);

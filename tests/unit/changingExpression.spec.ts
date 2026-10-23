@@ -4,14 +4,14 @@ import Vue from "vue";
 
 function getMountedComponent(Component: any, propsData: any) {
     return shallowMount(Component, {
-        propsData
+        propsData,
     });
 }
 
 describe("changing expression updates data", () => {
     it("when changing to expression from different tab, data is updated", async () => {
         let component = getMountedComponent(VueCronEditorBuefy, {
-            value: "*/43 * * * *"
+            value: "*/43 * * * *",
         });
         component.setProps({ value: "0 0 * * MON,WED,THU" });
 
@@ -22,7 +22,7 @@ describe("changing expression updates data", () => {
             days: ["MON", "WED", "THU"],
             hours: 0,
             minutes: 0,
-            type: "weekly"
+            type: "weekly",
         });
     });
 });
