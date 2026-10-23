@@ -16,36 +16,36 @@ import { buildExpression, TabKey, isStateValid } from "./buildExpression";
 const initialData: Record<TabKey, UiState> = {
     minutes: {
         type: "minutes",
-        minuteInterval: 1
+        minuteInterval: 1,
     },
     hourly: {
         type: "hourly",
         minutes: 0,
-        hourInterval: 1
+        hourInterval: 1,
     },
     daily: {
         type: "daily",
         minutes: 0,
         hours: 0,
-        dayInterval: 1
+        dayInterval: 1,
     },
     weekly: {
         type: "weekly",
         minutes: 0,
         hours: 0,
-        days: ["MON"]
+        days: ["MON"],
     },
     monthly: {
         type: "monthly",
         hours: 0,
         minutes: 0,
         day: 1,
-        monthInterval: 1
+        monthInterval: 1,
     },
     advanced: {
         type: "advanced",
-        cronExpression: ""
-    }
+        cronExpression: "",
+    },
 };
 
 interface ComponentData {
@@ -72,21 +72,21 @@ export default Vue.extend({
                     "daily",
                     "weekly",
                     "monthly",
-                    "advanced"
+                    "advanced",
                 ];
-            }
+            },
         },
         preserveStateOnSwitchToAdvanced: { type: Boolean, default: false },
         locale: { type: String, default: "en" },
         customLocales: { type: Object, default: null },
-        cronSyntax: { type: String, default: "basic" }
+        cronSyntax: { type: String, default: "basic" },
     },
     data() {
         return <ComponentData>{
             innerValue: "*/1 * * * *",
             editorData: Object.assign({}, initialData.minutes),
             currentTab: "minutes",
-            i18n: null
+            i18n: null,
         };
     },
     computed: {
@@ -95,9 +95,9 @@ export default Vue.extend({
 
             const cronstrueLocale = toCronstrueLocale(this.locale);
             return (cronstrue as any).toString(this.innerValue, {
-                locale: cronstrueLocale
+                locale: cronstrueLocale,
             });
-        }
+        },
     },
     methods: {
         _$t(key: string) {
@@ -108,7 +108,7 @@ export default Vue.extend({
             if (!this.visibleTabs.includes(tabData.type)) {
                 this.editorData = {
                     type: "advanced",
-                    cronExpression: this.value
+                    cronExpression: this.value,
                 };
                 this.currentTab = "advanced";
                 return;
@@ -126,8 +126,8 @@ export default Vue.extend({
             const cronExpression = buildExpression(
                 this.cronSyntax as CronSyntax,
                 {
-                    ...state
-                }
+                    ...state,
+                },
             );
 
             if (!this._isValidExpression(cronExpression)) {
@@ -139,12 +139,12 @@ export default Vue.extend({
             this.$emit("input", cronExpression);
         },
         _isValidExpression(cronExpression: string) {
-            let options =
+            const options =
                 this.cronSyntax == "quartz"
                     ? {
                           seconds: true,
                           allowBlankDay: true,
-                          alias: true
+                          alias: true,
                       }
                     : undefined;
             return cronValidator.isValidCron(cronExpression, options);
@@ -154,14 +154,14 @@ export default Vue.extend({
             if (this.preserveStateOnSwitchToAdvanced && tabKey === "advanced") {
                 this.editorData = {
                     type: "advanced",
-                    cronExpression: this.innerValue as string
+                    cronExpression: this.innerValue as string,
                 };
                 return;
             }
 
             this.editorData = Object.assign({}, initialData[tabKey]);
             this.__updateCronExpression(initialData[tabKey]);
-        }
+        },
     },
     watch: {
         locale() {
@@ -173,11 +173,11 @@ export default Vue.extend({
                     return;
                 }
                 this.__loadDataFromExpression();
-            }
+            },
         },
         cronSyntax() {
             this.__updateCronExpression(
-                JSON.parse(JSON.stringify(this.editorData))
+                JSON.parse(JSON.stringify(this.editorData)),
             );
         },
         editorData: {
@@ -185,7 +185,7 @@ export default Vue.extend({
             handler(changedData) {
                 const nonReactiveData = JSON.parse(JSON.stringify(changedData));
                 this.__updateCronExpression(nonReactiveData);
-            }
-        }
-    }
+            },
+        },
+    },
 });

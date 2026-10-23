@@ -3,7 +3,7 @@ import { parseExpression } from "../../src/buefy/core/parseExpression";
 test("parse minutes expression", () => {
     expect(parseExpression("*/4 * * * *")).toStrictEqual({
         type: "minutes",
-        minuteInterval: 4
+        minuteInterval: 4,
     });
 });
 
@@ -11,7 +11,7 @@ test("parse quartz hours expression", () => {
     expect(parseExpression("0 0 0/1 * * ?")).toStrictEqual({
         type: "hourly",
         hourInterval: 1,
-        minutes: 0
+        minutes: 0,
     });
 });
 
@@ -20,7 +20,7 @@ test("parse week expression", () => {
         type: "weekly",
         hours: 4,
         minutes: 4,
-        days: ["SUN", "TUE", "WED", "FRI"]
+        days: ["SUN", "TUE", "WED", "FRI"],
     });
 });
 
@@ -29,6 +29,6 @@ test("parse all week days expression", () => {
         type: "weekly",
         hours: 4,
         minutes: 4,
-        days: ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
+        days: ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"],
     });
 });

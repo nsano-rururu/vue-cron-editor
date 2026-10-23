@@ -2,54 +2,61 @@
   "name": "vue-cron-editor",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "test:unit": "vue-cli-service test:unit",
-    "lint": "vue-cli-service lint",
-    "postinstall": "link-parent-bin -c src",
-    "release:samples": "vue-cli-service build && gh-pages -d dist"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test:unit": "vitest",
+    "lint": "eslint . --fix",
+    "type-check": "vue-tsc --noEmit",
+    "release:samples": "npm run build && gh-pages -d dist"
   },
   "dependencies": {
-    "buefy": "^0.8.20",
-    "core-js": "^3.9.1",
-    "cron-validator": "^1.2.1",
-    "cronstrue": "^1.110.0",
-    "vue": "^2.6.12",
-    "vuetify": "^2.4.8"
+    "@mdi/font": "^7.4.47",
+    "buefy": "^3.0.8",
+    "bulma": "1.0.4",
+    "core-js": "^3.44.0",
+    "cron-validator": "^1.4.0",
+    "cronstrue": "^3.2.0",
+    "vue": "^3.5.18",
+    "vuetify": "^3.9.3"
+  },
+  "peerDependencies": {
+    "vue": "^3.0.0"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.19",
-    "@vue/cli-plugin-babel": "^4.5.12",
-    "@vue/cli-plugin-eslint": "^4.5.12",
-    "@vue/cli-plugin-typescript": "^4.5.12",
-    "@vue/cli-plugin-unit-jest": "^4.5.12",
-    "@vue/cli-service": "^4.5.12",
-    "@vue/eslint-config-prettier": "^5.0.0",
-    "@vue/eslint-config-typescript": "^4.0.0",
-    "@vue/test-utils": "1.0.0-beta.33",
-    "eslint": "^5.16.0",
-    "eslint-plugin-prettier": "^3.3.1",
-    "eslint-plugin-vue": "^5.0.0",
-    "fast-check": "^2.14.0",
-    "gh-pages": "^2.2.0",
-    "link-parent-bin": "^1.0.2",
-    "lint-staged": "^10.5.4",
-    "node-sass": "^4.14.1",
-    "prettier": "^1.19.1",
-    "sass": "^1.32.8",
-    "sass-loader": "^8.0.0",
-    "standard-version": "^9.0.0",
-    "typescript": "~3.5.3",
-    "vue-cli-plugin-vuetify": "^2.3.1",
-    "vue-template-compiler": "^2.6.12",
-    "vuetify-loader": "^1.7.2"
+    "@eslint/js": "^10.0.1",
+    "@types/jest": "^30.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.58.1",
+    "@typescript-eslint/parser": "^8.58.1",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "@vue/eslint-config-prettier": "^10.2.0",
+    "@vue/eslint-config-typescript": "^14.7.0",
+    "@vue/test-utils": "^2.4.6",
+    "@vue/tsconfig": "^0.7.0",
+    "eslint": "^10.2.0",
+    "eslint-plugin-prettier": "^5.5.3",
+    "eslint-plugin-vue": "^10.8.0",
+    "fast-check": "^4.2.0",
+    "gh-pages": "^6.3.0",
+    "jsdom": "^26.1.0",
+    "lint-staged": "^16.1.4",
+    "prettier": "^3.6.2",
+    "sass": "^1.89.2",
+    "typescript": "~5.8.3",
+    "vite": "^7.0.6",
+    "vitest": "^3.2.4",
+    "vue": "^3.5.18",
+    "vue-eslint-parser": "^10.2.0",
+    "vue-tsc": "^3.0.5"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
   },
   "lint-staged": {
     "**/*.{ts,js,vue}": [
-      "vue-cli-service lint"
+      "eslint --fix"
     ]
   }
 }
